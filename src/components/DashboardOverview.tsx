@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { Member, LoanApplication, PaymentTransaction } from '../types';
 import { formatCurrency, LOAN_PRODUCTS } from '../services/loanService';
+import { BeccLogo } from './BeccLogo';
 
 interface DashboardOverviewProps {
   members: Member[];
@@ -60,6 +61,48 @@ export function DashboardOverview({
 
   return (
     <div className="space-y-6">
+      {/* BECC Cooperative Header Banner */}
+      <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 rounded-2xl p-5 text-white shadow-md border border-emerald-700/40 relative overflow-hidden flex flex-wrap items-center justify-between gap-4">
+        <div className="absolute right-0 top-0 bottom-0 opacity-10 pointer-events-none flex items-center pr-4">
+          <BeccLogo className="w-56 h-56" />
+        </div>
+        <div className="flex items-center gap-4 relative z-10">
+          <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm p-1 border border-white/20 shadow-inner shrink-0">
+            <BeccLogo className="w-full h-full" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg sm:text-xl font-bold tracking-tight text-white">
+                Batanes Educators Credit Cooperative (BECC)
+              </h1>
+              <span className="text-[10px] bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 font-semibold px-2 py-0.5 rounded-full uppercase">
+                CDA Reg. No. 9520-02001428
+              </span>
+            </div>
+            <p className="text-xs text-emerald-100/90 mt-1 max-w-2xl">
+              Basco, Batanes • Fostering educator empowerment, financial stability, 3% p.a. savings, and cooperative credit since 1982.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 relative z-10 text-xs">
+          <button
+            onClick={onOpenLoanApply}
+            className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-3.5 py-2 rounded-xl transition shadow-sm active:scale-95 flex items-center gap-1.5"
+          >
+            <FileText className="w-4 h-4" />
+            <span>Process Loan</span>
+          </button>
+          <button
+            onClick={onOpenPaymentModal}
+            className="bg-white/10 hover:bg-white/20 text-white font-semibold px-3.5 py-2 rounded-xl transition border border-white/20 flex items-center gap-1.5"
+          >
+            <Banknote className="w-4 h-4" />
+            <span>Record Payment</span>
+          </button>
+        </div>
+      </div>
+
       {/* Top Banner Alert if Past Due accounts exist or offline sync pending */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {pastDueMembers.length > 0 && (

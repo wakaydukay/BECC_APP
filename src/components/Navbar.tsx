@@ -10,10 +10,13 @@ import {
   CheckCircle2, 
   AlertTriangle,
   Sliders,
-  ChevronDown
+  ChevronDown,
+  Server
 } from 'lucide-react';
 import { Member } from '../types';
 import { syncEngine } from '../services/syncEngine';
+import { BeccLogo } from './BeccLogo';
+import { apiService } from '../services/apiService';
 
 interface NavbarProps {
   currentTab: string;
@@ -44,19 +47,30 @@ export function Navbar({
 }: NavbarProps) {
   const [networkMode, setNetworkMode] = useState<'online' | 'offline' | 'slow_3g'>('online');
   const [isMemberDropdownOpen, setIsMemberDropdownOpen] = useState(false);
+  const [backendStatus, setBackendStatus] = useState<{ status: string; totalMembers?: number }>({ status: 'checking' });
 
   useEffect(() => {
     syncEngine.setNetworkMode(networkMode);
   }, [networkMode]);
 
+  useEffect(() => {
+    const checkApi = async () => {
+      const health = await apiService.checkHealth();
+      setBackendStatus(health);
+    };
+    checkApi();
+    const interval = setInterval(checkApi, 15000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <header className="bg-slate-900 text-white sticky top-0 z-40 border-b border-slate-800 shadow-md">
       {/* Top Banner / Network & Security Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs border-b border-slate-800/80">
-        <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
           {/* Network Simulator Control */}
           <div className="flex items-center gap-2 bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700">
-            <span className="text-slate-400 font-medium">Connectivity:</span>
+            <span className="text-slate-400 font-medium">Network:</span>
             <button
               id="btn-network-online"
               onClick={() => setNetworkMode('online')}
@@ -95,6 +109,21 @@ export function Navbar({
             </button>
           </div>
 
+          {/* Backend Express API Status Badge */}
+          <div className="flex items-center gap-1.5 bg-slate-800/90 px-2.5 py-1 rounded-md border border-slate-700">
+            <Server className={`w-3.5 h-3.5 ${backendStatus.status === 'ok' ? 'text-emerald-400' : 'text-amber-400'}`} />
+            <span className="text-slate-300 font-medium">Backend API:</span>
+            {backendStatus.status === 'ok' ? (
+              <span className="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded font-semibold border border-emerald-700">
+                Active (Express v4)
+              </span>
+            ) : (
+              <span className="text-[10px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-semibold">
+                Offline Cache
+              </span>
+            )}
+          </div>
+
           {/* Local AES Encryption Badge */}
           <button
             id="btn-vault-security"
@@ -103,8 +132,8 @@ export function Navbar({
             title="Local Data Encrypted with AES-GCM 256-bit"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="font-semibold text-slate-200">AES-256 Encrypted Vault</span>
-            <span className="text-[10px] bg-emerald-950 text-emerald-300 px-1 rounded border border-emerald-700">ACTIVE</span>
+            <span className="font-semibold text-slate-200">AES-256 Vault</span>
+            <span className="text-[10px] bg-emerald-950 text-emerald-300 px-1 rounded border border-emerald-700">ENCRYPTED</span>
           </button>
         </div>
 
@@ -130,29 +159,29 @@ export function Navbar({
             }`}
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
-            <span>{isSyncing ? 'Syncing...' : 'Sync with Server'}</span>
+            <span>{isSyncing ? 'Syncing...' : 'Sync with Backend'}</span>
           </button>
         </div>
       </div>
 
       {/* Main Navigation Row */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
-        {/* Brand & Title */}
+        {/* Brand & Title with Official BECC Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center shadow-md border border-emerald-400/30">
-            <Building2 className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 rounded-full bg-emerald-900/40 p-0.5 flex items-center justify-center shadow-lg border border-emerald-400/40 shrink-0">
+            <BeccLogo className="w-11 h-11" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-base sm:text-lg font-bold tracking-tight text-white leading-tight">
-                CoopSync Hub
+                BECC Cooperative Portal
               </h1>
-              <span className="text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.2 rounded">
-                Offline-First
+              <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                Basco, Batanes
               </span>
             </div>
-            <p className="text-xs text-slate-400">
-              Cooperative Membership & Loan Services (15% p.a. • Max ₱200k)
+            <p className="text-xs text-slate-300 font-medium">
+              Batanes Educators Credit Cooperative • Since 1982 • Share & Serve
             </p>
           </div>
         </div>

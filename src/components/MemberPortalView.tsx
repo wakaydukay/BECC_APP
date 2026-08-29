@@ -30,6 +30,7 @@ import {
 import { Member, LoanApplication, PaymentTransaction, SavingsAccount, SavingsTransaction, LoanType } from '../types';
 import { formatCurrency, LOAN_PRODUCTS } from '../services/loanService';
 import { calculateSavingsInterest, checkDormancyStatus, generateSavingsAccountForMember, SAVINGS_CONFIG } from '../services/savingsService';
+import { BeccLogo } from './BeccLogo';
 
 interface MemberPortalViewProps {
   member: Member;
@@ -76,11 +77,21 @@ export function MemberPortalView({
   return (
     <div className="space-y-6">
       {/* Member Header Card */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-        <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 relative overflow-hidden">
+        {/* Subtle BECC Watermark in background */}
+        <div className="absolute right-4 -top-8 opacity-5 pointer-events-none w-44 h-44">
+          <BeccLogo className="w-full h-full" />
+        </div>
+
+        <div className="flex flex-wrap items-start justify-between gap-4 relative z-10">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-800 text-white font-bold text-xl flex items-center justify-center shadow-md shrink-0">
-              {member.fullName.charAt(0)}
+            <div className="relative">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-800 text-white font-bold text-xl flex items-center justify-center shadow-md shrink-0">
+                {member.fullName.charAt(0)}
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white p-0.5 shadow-sm">
+                <BeccLogo className="w-full h-full" />
+              </div>
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">

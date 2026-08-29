@@ -1,6 +1,6 @@
 {
-  "name": "Cooperative Offline Membership & Loan Services",
-  "description": "Offline-first cooperative app for member services, 3% p.a. savings accounts with ₱300k interest cap & dormancy management, 15% p.a. loans, loan restructuring for overdue loans, local vault encryption, and automated conflict resolution sync.",
+  "name": "Batanes Educators Credit Cooperative (BECC)",
+  "description": "Offline-first cooperative app for BECC member services, 3% p.a. savings accounts with ₱300k interest cap & dormancy management, 15% p.a. loans, loan restructuring for overdue loans, local vault encryption, and Express backend synchronization.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

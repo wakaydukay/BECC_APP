@@ -1,5 +1,6 @@
 import { Member, LoanApplication, PaymentTransaction, QueuedOfflineMutation, ConflictRecord, SyncReport, NetworkSimulationState } from '../types';
 import { storageService, LocalCoopState } from './storageService';
+import { apiService } from './apiService';
 
 export class SyncEngine {
   private isSyncing: boolean = false;
@@ -45,23 +46,59 @@ export class SyncEngine {
     const generatedConflicts: ConflictRecord[] = [];
 
     try {
-      onProgress?.(10, 'Establishing secure TLS connection with Cooperative Core Server...');
+      onProgress?.(10, 'Connecting to BECC Cooperative Core Express Backend (/api/coop/sync)...');
       if (this.networkState.latencyMs > 0) {
         await new Promise((resolve) => setTimeout(resolve, this.networkState.latencyMs / 2));
       }
 
       const localState = storageService.getState();
-      const remoteDb = storageService.getRemoteMockDatabase();
+      const queue = [...localState.offlineQueue];
 
+      // Attempt live server synchronization first
+      try {
+        onProgress?.(30, `Transmitting ${queue.length} offline mutations to Express backend...`);
+        const serverResponse = await apiService.syncWithServer(queue);
+        
+        if (serverResponse && serverResponse.success && serverResponse.state) {
+          onProgress?.(70, 'Received reconciled state from Express server. Re-encrypting local AES-GCM vault...');
+          const serverDbState = serverResponse.state;
+          
+          const updatedState: LocalCoopState = {
+            members: serverDbState.members || localState.members,
+            loans: serverDbState.loans || localState.loans,
+            transactions: serverDbState.transactions || localState.transactions,
+            savingsAccounts: serverDbState.savingsAccounts || localState.savingsAccounts || [],
+            savingsTransactions: serverDbState.savingsTransactions || localState.savingsTransactions || [],
+            offlineQueue: [], // Cleared on server acceptance
+            conflicts: [...(serverResponse.conflicts || []), ...(serverResponse.report?.conflictsDetected ? [] : []), ...localState.conflicts],
+            syncReports: [serverResponse.report, ...localState.syncReports].slice(0, 30),
+            lastSyncTime: new Date().toISOString()
+          };
+
+          await storageService.persistToVault(updatedState);
+          storageService.saveRemoteMockDatabase(serverDbState);
+          onProgress?.(100, 'Express Backend Sync Completed! Local vault safely synchronized and encrypted.');
+
+          return {
+            success: true,
+            report: serverResponse.report,
+            updatedState
+          };
+        }
+      } catch (backendError) {
+        console.warn('Backend API request failed, falling back to local multi-master reconciliation:', backendError);
+        details.push('Notice: Used local reconciliation fallback during transient network state.');
+      }
+
+      // Fallback local multi-master resolution
+      const remoteDb = storageService.getRemoteMockDatabase();
       let localMembers = [...localState.members];
       let localLoans = [...localState.loans];
       let localTransactions = [...localState.transactions];
-      const queue = [...localState.offlineQueue];
-
       let itemsUploaded = 0;
       let itemsDownloaded = 0;
 
-      onProgress?.(30, `Processing ${queue.length} queued offline mutations with conflict detection...`);
+      onProgress?.(40, `Resolving ${queue.length} queued mutations locally...`);
 
       // 1. Process Offline Mutation Queue
       const resolvedQueueIds: string[] = [];

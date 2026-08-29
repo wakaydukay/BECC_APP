@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Text Paths -->
+    <path id="top-arc" d="M 60,250 A 190,190 0 1,1 440,250" fill="none" />
+    <path id="bottom-arc" d="M 440,250 A 190,190 0 0,1 60,250" fill="none" />
+    
+    <!-- Gradients -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#effcf6" />
+      <stop offset="70%" stop-color="#d1f4e0" />
+      <stop offset="100%" stop-color="#b6edd0" />
+    </radialGradient>
+    
+    <linearGradient id="flame-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="30%" stop-color="#f97316" />
+      <stop offset="70%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#fef08a" />
+    </linearGradient>
+
+    <linearGradient id="torch-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="50%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#92400e" />
+    </linearGradient>
+
+    <linearGradient id="banner-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#15803d" />
+      <stop offset="50%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Ring & Border -->
+  <circle cx="250" cy="250" r="242" fill="#0f5132" />
+  <circle cx="250" cy="250" r="236" fill="#ffffff" />
+  <circle cx="250" cy="250" r="232" fill="url(#bg-grad)" stroke="#198754" stroke-width="4" />
+  <circle cx="250" cy="250" r="162" fill="none" stroke="#198754" stroke-width="2.5" stroke-dasharray="4 3" />
+
+  <!-- Circular Outer Text (Top Arc) -->
+  <text font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="28" fill="#111827" letter-spacing="1.5">
+    <textPath href="#top-arc" startOffset="50%" text-anchor="middle">
+      BATANES EDUCATORS CREDIT COOPERATIVE
+    </textPath>
+  </text>
+
+  <!-- Side Stars -->
+  <!-- Left Star -->
+  <g transform="translate(68, 365) scale(0.9)">
+    <polygon points="0,-12 3.7,-3.7 12.6,-3.7 5.4,1.5 8.1,9.7 0,4.5 -8.1,9.7 -5.4,1.5 -12.6,-3.7 -3.7,-3.7" fill="#000000" />
+  </g>
+  <!-- Right Star -->
+  <g transform="translate(432, 365) scale(0.9)">
+    <polygon points="0,-12 3.7,-3.7 12.6,-3.7 5.4,1.5 8.1,9.7 0,4.5 -8.1,9.7 -5.4,1.5 -12.6,-3.7 -3.7,-3.7" fill="#000000" />
+  </g>
+
+  <!-- Circular Outer Text (Bottom Arc) -->
+  <text font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="34" fill="#111827" letter-spacing="3">
+    <textPath href="#bottom-arc" startOffset="50%" text-anchor="middle">
+      BASCO , BATANES
+    </textPath>
+  </text>
+
+  <!-- Cooperative People Arch (Circle of Unity) -->
+  <!-- 1. Top Left Blue -->
+  <g transform="translate(160, 160) scale(0.42)">
+    <circle cx="0" cy="-45" r="18" fill="#1e3a8a" />
+    <path d="M-35,-20 Q0,-35 35,-20 L25,35 Q0,45 -25,35 Z" fill="#3b82f6" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#3b82f6" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#3b82f6" />
+    <path d="M-15,35 L-20,70 L-5,70 L-3,35 Z" fill="#1e3a8a" />
+    <path d="M15,35 L20,70 L5,70 L3,35 Z" fill="#1e3a8a" />
+  </g>
+
+  <!-- 2. Top Yellow-Blue Member -->
+  <g transform="translate(200, 130) scale(0.42)">
+    <circle cx="0" cy="-45" r="18" fill="#111827" />
+    <path d="M-35,-20 Q0,-35 35,-20 L28,10 Q0,15 -28,10 Z" fill="#eab308" />
+    <path d="M-28,10 L-40,45 Q0,55 40,45 L28,10 Z" fill="#1d4ed8" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#eab308" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#eab308" />
+  </g>
+
+  <!-- 3. Top Center Yellow -->
+  <g transform="translate(250, 115) scale(0.42)">
+    <circle cx="0" cy="-45" r="18" fill="#1f2937" />
+    <path d="M-35,-20 Q0,-35 35,-20 L25,40 Q0,48 -25,40 Z" fill="#eab308" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#eab308" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#eab308" />
+    <path d="M-15,40 L-18,75 L-3,75 L-3,40 Z" fill="#374151" />
+    <path d="M15,40 L18,75 L3,75 L3,40 Z" fill="#374151" />
+  </g>
+
+  <!-- 4. Top Purple/Violet Member -->
+  <g transform="translate(300, 128) scale(0.42)">
+    <circle cx="0" cy="-45" r="18" fill="#111827" />
+    <path d="M-35,-20 Q0,-35 35,-20 L30,45 Q0,55 -30,45 Z" fill="#7c3aed" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#7c3aed" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#7c3aed" />
+    <path d="M-12,45 L-12,75 L-2,75 L-2,45 Z" fill="#4c1d95" />
+    <path d="M12,45 L12,75 L2,75 L2,45 Z" fill="#4c1d95" />
+  </g>
+
+  <!-- 5. Top Right Gold Member -->
+  <g transform="translate(345, 155) scale(0.42)">
+    <circle cx="0" cy="-45" r="18" fill="#ea580c" />
+    <path d="M-35,-20 Q0,-35 35,-20 L25,40 Q0,48 -25,40 Z" fill="#facc15" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#facc15" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#facc15" />
+    <path d="M-15,40 L-18,75 L-3,75 L-3,40 Z" fill="#b45309" />
+    <path d="M15,40 L18,75 L3,75 L3,40 Z" fill="#b45309" />
+  </g>
+
+  <!-- 6. Mid Right Orange Member -->
+  <g transform="translate(375, 200) scale(0.42)">
+    <circle cx="0" cy="-45" r="18" fill="#b45309" />
+    <path d="M-35,-20 Q0,-35 35,-20 L30,45 Q0,55 -30,45 Z" fill="#ea580c" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#ea580c" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#ea580c" />
+    <path d="M-12,45 L-12,75 L-2,75 L-2,45 Z" fill="#9a3412" />
+    <path d="M12,45 L12,75 L2,75 L2,45 Z" fill="#9a3412" />
+  </g>
+
+  <!-- 7. Far Right Maroon Member -->
+  <g transform="translate(390, 255) scale(0.40)">
+    <circle cx="0" cy="-45" r="18" fill="#881337" />
+    <path d="M-35,-20 Q0,-35 35,-20 L25,40 Q0,48 -25,40 Z" fill="#f43f5e" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#f43f5e" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#f43f5e" />
+  </g>
+
+  <!-- 8. Lower Right Blue/Maroon Member -->
+  <g transform="translate(390, 310) scale(0.40)">
+    <circle cx="0" cy="-45" r="18" fill="#991b1b" />
+    <path d="M-35,-20 Q0,-35 35,-20 L25,40 Q0,48 -25,40 Z" fill="#1d4ed8" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#1d4ed8" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#1d4ed8" />
+    <path d="M-15,40 L-18,75 L-3,75 L-3,40 Z" fill="#7f1d1d" />
+    <path d="M15,40 L18,75 L3,75 L3,40 Z" fill="#7f1d1d" />
+  </g>
+
+  <!-- 9. Far Left Brown/Orange Member -->
+  <g transform="translate(130, 220) scale(0.40)">
+    <circle cx="0" cy="-45" r="18" fill="#78350f" />
+    <path d="M-35,-20 Q0,-35 35,-20 L25,40 Q0,48 -25,40 Z" fill="#f97316" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#f97316" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#f97316" />
+    <path d="M-15,40 L-18,75 L-3,75 L-3,40 Z" fill="#991b1b" />
+    <path d="M15,40 L18,75 L3,75 L3,40 Z" fill="#991b1b" />
+  </g>
+
+  <!-- 10. Lower Left Maroon/White Member -->
+  <g transform="translate(120, 280) scale(0.40)">
+    <circle cx="0" cy="-45" r="18" fill="#991b1b" />
+    <path d="M-35,-20 Q0,-35 35,-20 L25,40 Q0,48 -25,40 Z" fill="#ffffff" stroke="#991b1b" stroke-width="2" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#ffffff" stroke="#991b1b" stroke-width="2" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#ffffff" stroke="#991b1b" stroke-width="2" />
+    <path d="M-15,40 L-18,75 L-3,75 L-3,40 Z" fill="#991b1b" />
+    <path d="M15,40 L18,75 L3,75 L3,40 Z" fill="#991b1b" />
+  </g>
+
+  <!-- 11. Bottom Left Maroon Member -->
+  <g transform="translate(130, 340) scale(0.38)">
+    <circle cx="0" cy="-45" r="18" fill="#881337" />
+    <path d="M-35,-20 Q0,-35 35,-20 L25,40 Q0,48 -25,40 Z" fill="#be123c" />
+    <path d="M-35,-20 L-55,-60 L-40,-65 L-20,-20 Z" fill="#be123c" />
+    <path d="M35,-20 L55,-60 L40,-65 L20,-20 Z" fill="#be123c" />
+  </g>
+
+  <!-- Central Torch Flame -->
+  <g transform="translate(250, 240)">
+    <!-- Outer Orange Glow -->
+    <path d="M 0,-85 C 25,-60 45,-30 35,0 C 25,25 -25,25 -35,0 C -45,-30 -25,-60 0,-85 Z" fill="#f97316" opacity="0.9" />
+    <!-- Dynamic Flame Tongues -->
+    <path d="M 0,-88 C 15,-65 20,-45 28,-30 C 35,-15 15,10 0,15 C -15,10 -35,-15 -28,-30 C -20,-45 -15,-65 0,-88 Z" fill="url(#flame-grad)" />
+    <path d="M -5,-70 C 8,-50 18,-35 15,-15 C 10,0 -10,0 -15,-15 C -18,-35 -8,-50 -5,-70 Z" fill="#fef08a" />
+    <path d="M 12,-65 C 22,-45 20,-20 10,-5 C 5,5 -5,5 -8,-5 C -5,-25 5,-45 12,-65 Z" fill="#ea580c" />
+    <path d="M -15,-55 C -5,-40 -5,-15 -12,-5 C -15,0 -22,0 -20,-10 C -18,-25 -20,-40 -15,-55 Z" fill="#ea580c" />
+  </g>
+
+  <!-- Torch Bowl & Stem -->
+  <g transform="translate(250, 290)">
+    <!-- Torch Cup/Rim -->
+    <path d="M -40,-35 L 40,-35 L 34,-15 L -34,-15 Z" fill="url(#torch-grad)" stroke="#78350f" stroke-width="2" />
+    <rect x="-35" y="-15" width="70" height="8" rx="2" fill="#fbbf24" stroke="#78350f" stroke-width="1.5" />
+    <!-- Torch Stem Conical -->
+    <path d="M -26,-7 L 26,-7 L 7,85 L -7,85 Z" fill="url(#torch-grad)" stroke="#78350f" stroke-width="2" />
+    <!-- Torch Base Rim -->
+    <rect x="-10" y="85" width="20" height="12" rx="2" fill="#d97706" stroke="#78350f" stroke-width="1.5" />
+  </g>
+
+  <!-- Ribbon Banner (SHARE & SERVE) -->
+  <g transform="translate(250, 410)">
+    <!-- Ribbon Tails -->
+    <path d="M -160,-5 L -190,-25 L -175,-5 L -190,15 L -160,-5 Z" fill="#14532d" />
+    <path d="M 160,-5 L 190,-25 L 175,-5 L 190,15 L 160,-5 Z" fill="#14532d" />
+    <path d="M -150,-15 L -120,-15 L -120,15 L -150,15 Z" fill="#166534" />
+    <path d="M 150,-15 L 120,-15 L 120,15 L 150,15 Z" fill="#166534" />
+
+    <!-- Main Ribbon Body -->
+    <path d="M -135,-20 Q 0,-30 135,-20 L 130,12 Q 0,2 130,12 L -130,12 Q 0,2 -135,-20 Z" fill="url(#banner-grad)" stroke="#14532d" stroke-width="2.5" />
+    <path d="M -130,-18 Q 0,-28 130,-18" fill="none" stroke="#86efac" stroke-width="1.5" />
+    <path d="M -125,9 Q 0,0 125,9" fill="none" stroke="#86efac" stroke-width="1.5" />
+
+    <!-- Ribbon Text -->
+    <text x="0" y="-3" font-family="'Arial Black', sans-serif" font-weight="900" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="3" stroke="#14532d" stroke-width="1">
+      SHARE &amp; SERVE
+    </text>
+  </g>
+
+  <!-- SINCE 1982 Text -->
+  <text x="250" y="442" font-family="'Arial', 'Helvetica', sans-serif" font-weight="800" font-size="16" fill="#1f2937" text-anchor="middle" letter-spacing="2">
+    SINCE 1982
+  </text>
+</svg>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   RefreshCw, 
   Wifi, 
@@ -14,10 +14,13 @@ import {
   FileCode, 
   ArrowRight,
   Info,
-  Sliders
+  Sliders,
+  Server,
+  RotateCcw
 } from 'lucide-react';
 import { QueuedOfflineMutation, ConflictRecord, SyncReport } from '../types';
 import { syncEngine } from '../services/syncEngine';
+import { apiService } from '../services/apiService';
 
 interface SyncConflictCenterProps {
   queue: QueuedOfflineMutation[];
@@ -46,6 +49,30 @@ export function SyncConflictCenter({
     message: ''
   });
   const [injectionNotice, setInjectionNotice] = useState<string | null>(null);
+  const [serverHealth, setServerHealth] = useState<any>({ status: 'checking' });
+  const [isResettingServer, setIsResettingServer] = useState(false);
+
+  useEffect(() => {
+    const fetchHealth = async () => {
+      const res = await apiService.checkHealth();
+      setServerHealth(res);
+    };
+    fetchHealth();
+  }, [lastSyncTime]);
+
+  const handleResetServerDatabase = async () => {
+    if (!window.confirm('Reset the Express server database to official BECC seed data?')) return;
+    try {
+      setIsResettingServer(true);
+      await apiService.resetServerDb();
+      alert('Server database reset successfully to BECC defaults.');
+      onTriggerSync();
+    } catch (e: any) {
+      alert('Failed to reset server database: ' + e.message);
+    } finally {
+      setIsResettingServer(false);
+    }
+  };
 
   const handleNetworkChange = (mode: 'online' | 'offline' | 'slow_3g') => {
     setNetworkMode(mode);
@@ -184,6 +211,42 @@ export function SyncConflictCenter({
             </div>
           </div>
         )}
+      </div>
+
+      {/* Express Backend Server & Persistent Storage Card */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center font-mono">
+            <Server className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm font-bold text-slate-900">
+                BECC Core Express Backend API
+              </h3>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${
+                serverHealth.status === 'ok' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+              }`}>
+                {serverHealth.status === 'ok' ? 'Online • Port 3000' : 'Offline Mode'}
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Persistent storage: <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700 font-mono">/data/server_db.json</code> • REST Endpoints: <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700 font-mono">/api/coop/sync</code>, <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700 font-mono">/api/members</code>, <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700 font-mono">/api/loans</code>
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleResetServerDatabase}
+            disabled={isResettingServer}
+            className="text-xs font-semibold text-rose-700 hover:text-rose-900 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-3 py-2 rounded-xl transition flex items-center gap-1.5"
+            title="Reset server database to official BECC cooperative seed data"
+          >
+            <RotateCcw className={`w-3.5 h-3.5 ${isResettingServer ? 'animate-spin' : ''}`} />
+            <span>Reset Backend DB</span>
+          </button>
+        </div>
       </div>
 
       {/* Two Column: Pending Offline Queue & Automated Conflict Resolution Log */}
